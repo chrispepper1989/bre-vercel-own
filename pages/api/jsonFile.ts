@@ -3,19 +3,10 @@ import fs from 'fs/promises';
 import path from 'path';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const makeDecision = async () => {
-    // Example filesystem content, it is up to you how you obtain content
-    const content = await fs.readFile('./jdm_graph.json');
-    const engine = new ZenEngine();
-
-    const decision = engine.createDecision(content);
-    const result = await decision.evaluate({ input: 15 });
-    engine.dispose();
-};
 
 async function getJsonFile(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const filePath = path.join(process.cwd(), 'public', 'data.json');
+        const filePath = path.join(process.cwd(), 'public', 'graph.json');
         const data = await fs.readFile(filePath, 'utf8');
         const parsedData = JSON.parse(data);
 
@@ -32,7 +23,8 @@ async function getJsonFile(req: NextApiRequest, res: NextApiResponse) {
 
 async function setJsonFile(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const filePath = path.join(process.cwd(), 'public', 'data.json');
+        
+        const filePath = path.join(process.cwd(), 'public', 'graph.json');
         const data = req.body;
 
         // Validate the incoming data to ensure it's a valid JSON object

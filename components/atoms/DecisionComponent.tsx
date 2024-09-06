@@ -29,6 +29,7 @@ function GraphComponent() {
     useEffect(() => {
         const saveData = async () => {
             try {
+                console.log("trying to save")
                 await fetch(API_ENDPOINT, {
                     method: 'POST',
                     headers: {
@@ -36,6 +37,7 @@ function GraphComponent() {
                     },
                     body: JSON.stringify(graph),
                 });
+                console.log("done save")
             } catch (error) {
                 console.error('Error saving data:', error);
             }

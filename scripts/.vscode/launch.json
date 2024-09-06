@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug TypeScript Node App",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "args": [
+          "npx",
+          "ts-node",
+          "test.ts",
+          "DecisionTables.json",
+          "jdmOutput.json"
+        ],
+        "runtimeArgs": [],
+        "sourceMaps": true,
+        "outFiles": [
+          "${workspaceFolder}/out/**/*.js"
+        ],
+        
+      }
+    ]
+  }

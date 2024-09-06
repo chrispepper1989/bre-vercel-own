@@ -6,11 +6,12 @@ import { ZenEngine } from '@gorules/zen-engine';
 
 async function handleMakeDecision(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const content = await fs.readFile('./jdm_graph.json', 'utf8');
+        const content = await fs.readFile('./graph.json', 'utf8');
         const engine = new ZenEngine();
 
         const decision = engine.createDecision({content});
-        const result = await decision.evaluate({ input: 15 });
+       
+        const result = await decision.evaluate(req.body.json);
         engine.dispose();
 
         res.status(200).json({ result });

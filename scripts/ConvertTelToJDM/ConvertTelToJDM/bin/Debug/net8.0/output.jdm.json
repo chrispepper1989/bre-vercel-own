@@ -1,0 +1,561 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "name": "Input",
+      "id": "05e02532-d921-44ce-bae4-8a37ea6a91de",
+      "position": {
+        "x": 35,
+        "y": 10
+      },
+      "type": "inputNode",
+      "content": null
+    },
+    {
+      "name": "preScreen_AllLenders",
+      "id": "80e9a62b-5a54-47fa-8981-f6cd9389444d",
+      "position": {
+        "x": 335,
+        "y": 10
+      },
+      "type": "decisionTableNode",
+      "content": {
+        "hitPolicy": "first",
+        "inputs": [
+          {
+            "id": "fd2dd0c4-2fc5-4322-8018-31648a43cb66",
+            "name": "ApplicantAge",
+            "type": "unary",
+            "field": "ApplicantAge"
+          },
+          {
+            "id": "239440f6-df69-4484-80e5-2eb64b61cb86",
+            "name": "LoanInformation / LoanAdvance",
+            "type": "unary",
+            "field": "LoanInformation.LoanAdvance"
+          },
+          {
+            "id": "8898b026-b80b-4662-b262-a5d858ea2d40",
+            "name": "LoanInformation / EngineCC",
+            "type": "unary",
+            "field": "LoanInformation.EngineCC"
+          },
+          {
+            "id": "bb433921-a937-46e7-9c42-2e92f3c7158b",
+            "name": "IncomeAndBank / GrossAnnualSalary",
+            "type": "unary",
+            "field": "IncomeAndBank.GrossAnnualSalary"
+          }
+        ],
+        "outputs": [
+          {
+            "field": "Lender",
+            "id": "5063ee6d-6a2f-4ae1-8378-eb6374971061",
+            "name": "Lender",
+            "type": "expression"
+          },
+          {
+            "field": "Status",
+            "id": "d9637327-714a-4bfd-b8e1-5b7071921771",
+            "name": "Status",
+            "type": "expression"
+          }
+        ],
+        "rules": [
+          {
+            "_id": "2d605060-d6ab-45d8-9e87-eab53b3a2537",
+            "fd2dd0c4-2fc5-4322-8018-31648a43cb66": "<=18",
+            "5063ee6d-6a2f-4ae1-8378-eb6374971061": "'ALL LENDERS'",
+            "d9637327-714a-4bfd-b8e1-5b7071921771": "'REJECT'"
+          },
+          {
+            "_id": "7bbcab54-6362-4f97-bdef-fd03fd4c4614",
+            "fd2dd0c4-2fc5-4322-8018-31648a43cb66": "<25",
+            "239440f6-df69-4484-80e5-2eb64b61cb86": ">20000",
+            "5063ee6d-6a2f-4ae1-8378-eb6374971061": "'ALL LENDERS'",
+            "d9637327-714a-4bfd-b8e1-5b7071921771": "'REJECT'"
+          },
+          {
+            "_id": "e178b678-6ed4-491d-af68-9a7a3bf99a5f",
+            "fd2dd0c4-2fc5-4322-8018-31648a43cb66": "<25",
+            "8898b026-b80b-4662-b262-a5d858ea2d40": ">2000",
+            "5063ee6d-6a2f-4ae1-8378-eb6374971061": "'ALL LENDERS'",
+            "d9637327-714a-4bfd-b8e1-5b7071921771": "'REJECT'"
+          },
+          {
+            "_id": "8cfe40eb-a360-4e98-9b1a-a87a81055965",
+            "fd2dd0c4-2fc5-4322-8018-31648a43cb66": ">80",
+            "5063ee6d-6a2f-4ae1-8378-eb6374971061": "'ALL LENDERS'",
+            "d9637327-714a-4bfd-b8e1-5b7071921771": "'REJECT'"
+          },
+          {
+            "_id": "59f43861-e104-44c5-be26-23938eaf0d4b",
+            "bb433921-a937-46e7-9c42-2e92f3c7158b": "<=9500",
+            "5063ee6d-6a2f-4ae1-8378-eb6374971061": "'ALL LENDERS'",
+            "d9637327-714a-4bfd-b8e1-5b7071921771": "'REJECT'"
+          },
+          {
+            "_id": "c54a403b-f536-46fb-a604-e2c09679c976",
+            "5063ee6d-6a2f-4ae1-8378-eb6374971061": "''",
+            "d9637327-714a-4bfd-b8e1-5b7071921771": "'PROCEED'"
+          }
+        ]
+      }
+    },
+    {
+      "name": "preScreen_PerLender",
+      "id": "31a9a11e-2227-4859-9ab0-5d7b54231cd1",
+      "position": {
+        "x": 335,
+        "y": 115
+      },
+      "type": "decisionTableNode",
+      "content": {
+        "hitPolicy": "first",
+        "inputs": [
+          {
+            "id": "4a0727c7-d0cd-4c86-8199-962b362da7da",
+            "name": "PreScreenAllLenders / Status",
+            "type": "unary",
+            "field": "PreScreenAllLenders.Status"
+          },
+          {
+            "id": "afaaa1f1-5435-4c74-aa2f-3fcd624ce55d",
+            "name": "ApplicantAge",
+            "type": "unary",
+            "field": "ApplicantAge"
+          },
+          {
+            "id": "f9f62c8d-ee0b-4d53-bde2-c6bed0fb6c63",
+            "name": "Address / PostCode",
+            "type": "unary",
+            "field": "Address.PostCode"
+          },
+          {
+            "id": "26673f2d-216b-4835-859d-603ae9a0d73b",
+            "name": "Employment / OccupationType",
+            "type": "unary",
+            "field": "Employment.OccupationType"
+          },
+          {
+            "id": "4f505458-ec51-46b5-9cc2-8670629b3d73",
+            "name": "Employment / SectorOfActivity",
+            "type": "unary",
+            "field": "Employment.SectorOfActivity"
+          },
+          {
+            "id": "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb",
+            "name": "LoanInformation / LTVPercentRetail",
+            "type": "unary",
+            "field": "LoanInformation.LTVPercentRetail"
+          },
+          {
+            "id": "396fcaab-21ae-40b8-b842-26429658828c",
+            "name": "LoanInformation / LTVPercentTrade",
+            "type": "unary",
+            "field": "LoanInformation.LTVPercentTrade"
+          },
+          {
+            "id": "bc6a2345-e9db-4925-97ac-ce99d70a0260",
+            "name": "LoanInformation / FuelType",
+            "type": "unary",
+            "field": "LoanInformation.FuelType"
+          },
+          {
+            "id": "1ca6884f-b6a4-4455-aa90-9f44a9491baf",
+            "name": "LoanInformation / VehicleClass",
+            "type": "unary",
+            "field": "LoanInformation.VehicleClass"
+          },
+          {
+            "id": "5c3589de-047e-4496-ba15-0bcc83361601",
+            "name": "LoanInformation / EngineCC",
+            "type": "unary",
+            "field": "LoanInformation.EngineCC"
+          },
+          {
+            "id": "6ce17e3e-8b4b-4d4c-9bda-60063e2dda92",
+            "name": "LoanInformation / FacilityType",
+            "type": "unary",
+            "field": "LoanInformation.FacilityType"
+          },
+          {
+            "id": "86bed855-060b-4e15-93bc-1697726b35f0",
+            "name": "Contact / DrivingLicenseType",
+            "type": "unary",
+            "field": "Contact.DrivingLicenseType"
+          },
+          {
+            "id": "ba6d5cee-60f8-4c1c-ad21-ea3cd3efff7f",
+            "name": "Employment / OccupationBasis",
+            "type": "unary",
+            "field": "Employment.OccupationBasis"
+          },
+          {
+            "id": "b1b290ce-8314-447c-b853-f0b3ab277b76",
+            "name": "IncomeAndBank / GrossAnnualSalary",
+            "type": "unary",
+            "field": "IncomeAndBank.GrossAnnualSalary"
+          },
+          {
+            "id": "ea7cbd08-7915-42f8-97c8-26a26112f288",
+            "name": "IncomeAndBank / ConsentForOpenBankingCheck",
+            "type": "unary",
+            "field": "IncomeAndBank.ConsentForOpenBankingCheck"
+          }
+        ],
+        "outputs": [
+          {
+            "field": "Lender",
+            "id": "2e04fed3-c696-48dc-9386-c4a6f5e07a5d",
+            "name": "Lender",
+            "type": "expression"
+          },
+          {
+            "field": "Source",
+            "id": "8a28693f-717c-47fe-bdcb-f62cdacd6368",
+            "name": "Status",
+            "type": "expression"
+          }
+        ],
+        "rules": [
+          {
+            "_id": "6d3b1e69-fb7d-456e-8f15-b7f64d689084",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "afaaa1f1-5435-4c74-aa2f-3fcd624ce55d": "<=21",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, MOT'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "05dcd42e-6910-4938-b2dd-ff06ee26fb94",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "f9f62c8d-ee0b-4d53-bde2-c6bed0fb6c63": "startsWith($,BT)",
+            "26673f2d-216b-4835-859d-603ae9a0d73b": "",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ADV, BLU, SAN'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "f414c495-10aa-46bf-ac44-edbacda1ceb7",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "86bed855-060b-4e15-93bc-1697726b35f0": "Provisional",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'MOT'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "605d8832-e8fe-4c58-a80e-cbde1f939eb4",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "ba6d5cee-60f8-4c1c-ad21-ea3cd3efff7f": "Part Time",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'BLU'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "d26fbf1e-c957-4a0c-b34e-db9e1d6f6505",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "ba6d5cee-60f8-4c1c-ad21-ea3cd3efff7f": "Part Time",
+            "b1b290ce-8314-447c-b853-f0b3ab277b76": "<12600",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "634191e1-9c92-4dbe-a40e-a1fa93ad2a41",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "26673f2d-216b-4835-859d-603ae9a0d73b": "Taxi Driver",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, BLU'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "4c5b8517-48ab-43c7-8b2b-01c43619db34",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "26673f2d-216b-4835-859d-603ae9a0d73b": "Chauffeur",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, BLU'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "0b8bcda3-d01a-4634-808c-9f889d9d4451",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "26673f2d-216b-4835-859d-603ae9a0d73b": "Receiving Disability Benefit",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, MOT, CRE, BLU, STE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "3578bae0-bebb-43b6-83a7-fb60cff38620",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "4f505458-ec51-46b5-9cc2-8670629b3d73": "Military Equipment",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "be1f42e3-1b0c-422a-b1ad-1adb54e28db2",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "4f505458-ec51-46b5-9cc2-8670629b3d73": "Nuclear Materials",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "b47ac792-c9df-46a4-9f19-bdb15978cb06",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "4f505458-ec51-46b5-9cc2-8670629b3d73": "Vehicle Hire",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "9a90273a-0d18-498a-bb11-42f00d07e821",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "4f505458-ec51-46b5-9cc2-8670629b3d73": "Taxi",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "20369453-00cc-41e8-83da-f7cf9024fb8c",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "4f505458-ec51-46b5-9cc2-8670629b3d73": "Weapons",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'STE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "424c401d-0fca-4c37-97f6-6e97a2ca24bc",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Touring Caravan",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, MOT, BLU, STE, V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "59bf6d03-f715-4e66-ad70-fafbdec28fcb",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "C",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "40d6b424-9b0d-4e4b-9e44-e6fa25d6affd",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "F",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "9fb6e879-af5e-406c-8428-f5bfc4118dd4",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "G",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "86ed6f37-1531-447a-bc3d-718af4a402e0",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "F",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "LCV",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "d2407aee-0a93-437f-9f28-80954b590cbb",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "G",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "LCV",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "e886b45c-9078-4287-8c2b-f03989a492b2",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": ">105",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, MOT'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "b5c0e64f-96d9-4ff3-bd15-0c0a385a10ec",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">105",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "88abb35a-f6d6-425c-9594-9e6dd0e8d0a7",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">110",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'MOT'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "9ad352a0-ffa5-4392-92ac-5d9fd1d76ac8",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": ">120",
+            "396fcaab-21ae-40b8-b842-26429658828c": "",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ADV, BLU'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "259413d6-f1e5-4781-bfb7-7b4c66fc38e0",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">120",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, ADV, BLU'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "03c50fcb-f418-45ff-a0ee-5ad4d7689a92",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": ">130",
+            "396fcaab-21ae-40b8-b842-26429658828c": "",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE, SAN'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "6ed32c17-1e74-4dc8-bff3-cd5f7c570df4",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">130",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'CRE, SAN'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "ab217d6c-88e3-48e9-917d-6bbe499b042b",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": "",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">100",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "E",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "e1a8acde-967c-4753-8540-ca8865bd845e",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": ">100",
+            "396fcaab-21ae-40b8-b842-26429658828c": "",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "E",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "31cc27d2-1171-4585-9a70-5a0885eb6693",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": "",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">100",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "R",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "4c649c72-913d-4a3a-8c56-650218434011",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": ">100",
+            "396fcaab-21ae-40b8-b842-26429658828c": "",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "R",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "79d5ee05-aa85-4a19-bedb-d82015175e72",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": "",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">100",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "E",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "LCV",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "3cb00c4c-2c59-4c45-b190-c3b18259f385",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": ">100",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "E",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "LCV",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "e5a296c5-b08f-4dc5-8f6b-7c8a41e3dc8c",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "396fcaab-21ae-40b8-b842-26429658828c": ">100",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "R",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "LCV",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "7b5d57cf-ca37-45cc-9665-18d28eb1609e",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "2bdf4700-2c76-41cd-adc7-cd1526e4e8eb": ">100",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "R",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "LCV",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "38d38179-25c3-4a8a-a078-ac41a9c32b92",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Bike",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'ALP, V12, BLU, CRE, STE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "0b18ee75-7743-4b26-a017-915438faf206",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Bike",
+            "5c3589de-047e-4496-ba15-0bcc83361601": ">1200",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'MOT'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "ee7b0ccf-9870-4673-95b4-e72434d243a5",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "bc6a2345-e9db-4925-97ac-ce99d70a0260": "E",
+            "1ca6884f-b6a4-4455-aa90-9f44a9491baf": "Car",
+            "6ce17e3e-8b4b-4d4c-9bda-60063e2dda92": "PCP",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'V12'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          },
+          {
+            "_id": "70ec4ade-c617-4056-b295-f71f550bb0ee",
+            "4a0727c7-d0cd-4c86-8199-962b362da7da": "PROCEED",
+            "ea7cbd08-7915-42f8-97c8-26a26112f288": "No",
+            "2e04fed3-c696-48dc-9386-c4a6f5e07a5d": "'MON, ADV, 1ST, FIR, MAR, MOE'",
+            "8a28693f-717c-47fe-bdcb-f62cdacd6368": "'REJECT'"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OutputResponse",
+      "id": "3f4ef7bd-11ad-4d96-8016-270698a4f201",
+      "position": {
+        "x": 635,
+        "y": 210
+      },
+      "type": "outputNode",
+      "content": null
+    }
+  ],
+  "edges": [
+    {
+      "id": "381ee063-87ad-4085-9141-231770f14ad6",
+      "sourceId": "05e02532-d921-44ce-bae4-8a37ea6a91de",
+      "type": "edge",
+      "targetId": "80e9a62b-5a54-47fa-8981-f6cd9389444d"
+    },
+    {
+      "id": "64c8e203-b8f3-48dd-a770-c701c9ac8103",
+      "sourceId": "80e9a62b-5a54-47fa-8981-f6cd9389444d",
+      "type": "edge",
+      "targetId": "3f4ef7bd-11ad-4d96-8016-270698a4f201"
+    },
+    {
+      "id": "9d75b3c7-5b3d-48a1-8248-cf830a17c31e",
+      "sourceId": "05e02532-d921-44ce-bae4-8a37ea6a91de",
+      "type": "edge",
+      "targetId": "31a9a11e-2227-4859-9ab0-5d7b54231cd1"
+    },
+    {
+      "id": "22019548-5f17-4e7c-a450-237af2075e2a",
+      "sourceId": "31a9a11e-2227-4859-9ab0-5d7b54231cd1",
+      "type": "edge",
+      "targetId": "3f4ef7bd-11ad-4d96-8016-270698a4f201"
+    }
+  ]
+}
