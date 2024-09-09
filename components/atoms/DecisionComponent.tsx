@@ -12,7 +12,7 @@ interface GraphComponentProps {
 
 function GraphComponent({graphFile}: GraphComponentProps) {
 
-    const API_ENDPOINT = '/api/jsonFile?graphFile='+graphFile;
+    const API_ENDPOINT = '/api/jsonFile?graph='+graphFile;
     const [graph, setGraph] = useState<any>();
 
     useEffect(() => {

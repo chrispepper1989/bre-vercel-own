@@ -7,15 +7,21 @@ import {useSearchParams} from "next/navigation";
 
 
 
-export default function Home() {
+export default function Home({
+                                 params,
+                                 searchParams,
+                             }: {
+    params: { slug: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+}) {
     cookies();
-    const searchParams = useSearchParams()
+
    
-    const graphFile = searchParams?.get('graph') ?? "graph.json";
+    const {graph} = searchParams;
     
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <GraphComponent graphFile={graphFile}></GraphComponent>
+            <GraphComponent graphFile={graph as string ?? "graph.json"}></GraphComponent>
             {/* ... rest of your component */}
         </main>
     );

@@ -72,10 +72,13 @@ async function setJsonFile(req: NextApiRequest, res: NextApiResponse) {
             throw new Error('Invalid JSON data in request body');
         }
 
+        
         const vc = new VersionControlHandler()
         await vc.UpdateVersion(filePath);
-
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+        
+         
+        if(!data.error)
+            await fs.writeFile(filePath, JSON.stringify(data, null, 2));
         res.status(200).json({ message: 'JSON file updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error writing JSON file' });
