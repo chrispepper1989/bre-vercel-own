@@ -1,0 +1,83 @@
+{
+  "error": "Error reading JSON file",
+  "nodes": [
+    {
+      "type": "inputNode",
+      "id": "5accabdd-78a9-4e0d-8d64-bece047cfe3a",
+      "name": "request",
+      "position": {
+        "x": 0,
+        "y": 75
+      }
+    },
+    {
+      "type": "outputNode",
+      "id": "e1eeac60-192b-40dc-90c6-27c0206306df",
+      "name": "response",
+      "position": {
+        "x": 440,
+        "y": 85
+      }
+    },
+    {
+      "type": "decisionTableNode",
+      "content": {
+        "hitPolicy": "first",
+        "inputs": [
+          {
+            "id": "d0651733-4f3e-4f10-9e39-359154c7243f",
+            "field": "applicantage",
+            "name": "Age"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "8b371671-9e0a-48a7-b526-20763be59037",
+            "name": "Status",
+            "field": "status.status",
+            "defaultValue": "Accepted"
+          }
+        ],
+        "rules": [
+          {
+            "_id": "7117e2d4-59ac-40f0-929f-55067d95810b",
+          
+            "d0651733-4f3e-4f10-9e39-359154c7243f": "<21",
+            "8b371671-9e0a-48a7-b526-20763be59037": "'Rejected'"
+          },
+          {
+            "_id": "aeb6afe4-c55e-4ca8-8b89-0a999af9a585",
+           
+            "d0651733-4f3e-4f10-9e39-359154c7243f": ">90",
+            "8b371671-9e0a-48a7-b526-20763be59037": "'Rejected'"
+          },
+          {
+            "_id": "06ae7d7b-c805-470a-a333-dd98f267f4ed",
+            "d0651733-4f3e-4f10-9e39-359154c7243f": "",
+            "8b371671-9e0a-48a7-b526-20763be59037": "'Accepted'"
+          }
+        ]
+      },
+      "id": "420518bb-f999-47c3-938a-5d66779ac89b",
+      "name": "CompleteCrap",
+      "position": {
+        "x": 230,
+        "y": 185
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "3235c10d-b0a9-4f8b-b013-941aa528ba24",
+      "sourceId": "420518bb-f999-47c3-938a-5d66779ac89b",
+      "type": "edge",
+      "targetId": "e1eeac60-192b-40dc-90c6-27c0206306df"
+    },
+    {
+      "id": "75d43b9a-b997-4d29-a18e-70403090e35b",
+      "sourceId": "5accabdd-78a9-4e0d-8d64-bece047cfe3a",
+      "type": "edge",
+      "targetId": "420518bb-f999-47c3-938a-5d66779ac89b"
+    }
+  ]
+}

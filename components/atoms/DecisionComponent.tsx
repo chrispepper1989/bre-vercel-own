@@ -1,15 +1,18 @@
 ﻿"use client"
 import '@gorules/jdm-editor/dist/style.css';
-import { DecisionGraph, JdmConfigProvider } from '@gorules/jdm-editor';
-import { useState, useEffect } from 'react';
+import {DecisionGraph, JdmConfigProvider} from '@gorules/jdm-editor';
+import {useState, useEffect} from 'react';
 // Assuming your API endpoint is '/api/jsonFile'
-const API_ENDPOINT = '/api/jsonFile';
 
 
 
-function GraphComponent() {
+interface GraphComponentProps {
+    graphFile?: string
+}
 
+function GraphComponent({graphFile}: GraphComponentProps) {
 
+    const API_ENDPOINT = '/api/jsonFile?graphFile='+graphFile;
     const [graph, setGraph] = useState<any>();
 
     useEffect(() => {
@@ -47,7 +50,7 @@ function GraphComponent() {
             saveData();
         }
     }, [graph]);
-    
+
     return (
         <div className="w-full">
             <JdmConfigProvider>
