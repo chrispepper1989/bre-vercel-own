@@ -7,7 +7,9 @@ import path from "path";
 
 async function handleMakeDecision(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const filePath = path.join(process.cwd(), 'public', 'graph.json');
+        const  {graph} = req.query;
+        
+        const filePath = path.join(process.cwd(), 'public', (graph as string)?? 'graph.json');
         const data = await fs.readFile(filePath, 'utf8');
         const engine = new ZenEngine();
         const parsedData = JSON.parse(data);
