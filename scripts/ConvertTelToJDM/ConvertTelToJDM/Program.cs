@@ -90,7 +90,7 @@ namespace ConvertToJDM
                     {
                         inputs = inputs,
                         outputs = outputs,
-                        hitPolicy = "first",
+                        hitPolicy = count == 1 ?  "first" : "collect",
                         rules = rules
                     }
                 };
@@ -123,7 +123,7 @@ namespace ConvertToJDM
 
             return new ConvertToJDM.Models.JDM.Root()
             {
-                contentType = "application/vnd.gorules.decision",
+               
                 edges = edges,
                 nodes = nodes,
 
@@ -162,8 +162,8 @@ namespace ConvertToJDM
                 //IF ALL these conditions are met
                 telrockRule.conditions.ForEach(condition =>
                 {
-                    if(condition.value != null)
-                        rules[inputColumnDictionary[condition.property]] = WrapValueWithOperation(condition.operation, condition.value);
+                    
+                        rules[inputColumnDictionary[condition.property]] = condition.value == null ? "" :  WrapValueWithOperation(condition.operation, condition.value);
                 });
                 // DO the following actions
                 telrockRule.actions.ForEach(action =>
@@ -186,7 +186,7 @@ namespace ConvertToJDM
                     field = col.property,
                     id = col._id,
                     name = col.title,
-                    type = "expression"
+                    defaultValue = ""
                 };
             });
             return (cols, outputColumnLookup);
@@ -202,8 +202,8 @@ namespace ConvertToJDM
                 {
                     name = telRockInput.title,
                     field = telRockInput.property,
-                    type = "unary",
                     id = telRockInput._id,
+                    defaultValue= "",
                 };
             });
             return (inputs, inputColumnLookUp);

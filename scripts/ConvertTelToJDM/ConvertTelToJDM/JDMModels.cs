@@ -24,8 +24,9 @@ namespace ConvertToJDM.Models.JDM
     {
         public string id { get; set; }
         public string name { get; set; }
-        public string type { get; set; }
+        
         public string field { get; set; }
+        public string defaultValue { get; set; }
     }
 
     public class Node
@@ -42,7 +43,7 @@ namespace ConvertToJDM.Models.JDM
         public string field { get; set; }
         public string id { get; set; }
         public string name { get; set; }
-        public string type { get; set; }
+        public string defaultValue { get; set; }
     }
 
     public class Position
@@ -53,7 +54,7 @@ namespace ConvertToJDM.Models.JDM
 
     public class Root
     {
-        public string contentType { get; set; }
+        
         public List<Node> nodes { get; set; }
         public List<Edge> edges { get; set; }
     }
@@ -67,6 +68,7 @@ namespace ConvertToJDM.Models.JDM
             return new Dictionary<string, string>()
             {
                 { "_id", id },
+                { "_description", "" },
             };
         }
     }

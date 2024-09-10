@@ -1,9 +1,10 @@
-import {cookies} from "next/headers";
+import {cookies, headers} from "next/headers";
 
 export const dynamic = "force-dynamic"
 export const revalidate= 0;
 import GraphComponent from "@/components/atoms/DecisionComponent";
-import {useSearchParams} from "next/navigation";
+import {redirect, useSearchParams} from "next/navigation";
+import {NextResponse} from "next/server";
 
 
 
@@ -15,6 +16,7 @@ export default function Home({
     searchParams: { [key: string]: string | string[] | undefined }
 }) {
     cookies();
+
 
    
     const {graph} = searchParams;

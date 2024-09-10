@@ -314,7 +314,7 @@
       "type": "decisionTableNode"
     },
     {
-      "name": "Years In Business Yo",
+      "name": "Years In Business",
       "content": {
         "hitPolicy": "first",
         "inputs": [

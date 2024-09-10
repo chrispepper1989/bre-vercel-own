@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConvertTelToJDM")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68f3c5957c878b676efcbd6a26166c2bbdc13879")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec49e280ecd3144b6385883fa3c86967955306bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConvertTelToJDM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConvertTelToJDM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
