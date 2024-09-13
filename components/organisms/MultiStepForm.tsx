@@ -1,7 +1,7 @@
 ﻿"use client"
 import React, {useState} from "react";
 import {PersonalDetails, PersonalDetailsForm} from "@/components/organisms/PersonalDetailsForm";
-
+import './FormStyles.css';
 
 import EmploymentDetailsForm, {EmploymentDetails} from "@/components/organisms/EmploymentDetailsForm";
 import AddressDetailsForm, {AddressDetails} from "@/components/organisms/AddressDetailsForm";
