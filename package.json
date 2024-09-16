@@ -12,11 +12,13 @@
     "@gorules/jdm-editor": "^1.15.0",
     "@gorules/zen-engine": "^0.27.0",
     "next": "14.2.7",
+    "pubnub": "^8.2.7",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/pubnub": "^7.4.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

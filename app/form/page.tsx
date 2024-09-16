@@ -1,10 +1,5 @@
 import MultiStepForm from "@/components/organisms/MultiStepForm";
 
-export const dynamic = "force-dynamic"
-export const revalidate= 0;
-
-
-
 
 export default function Form({
                                  params,
@@ -17,7 +12,7 @@ export default function Form({
 
 
    
-    const {graph} = searchParams;
+    const {customerId} = searchParams;
     
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">

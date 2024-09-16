@@ -1,24 +1,24 @@
-import GraphComponent from "@/components/organisms/DecisionComponent";
+
+import QuoteList from "@/components/organisms/QuoteList";
 
 
-export const dynamic = "force-dynamic"
-export const revalidate= 0;
 
 
-export default function Home({
+
+export default function Results({
                                  params,
                                  searchParams,
                              }: {
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }) {
-     
-    const {graph} = searchParams;
+
+   
+    const {id,channel } = searchParams;
     
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <GraphComponent graphFile={graph as string ?? "graph.json"}></GraphComponent>
-            {/* ... rest of your component */}
+            <QuoteList eligibilityId={(id as string) ?? 1} channel={(channel as string) ?? ""} />/
         </main>
     );
 }

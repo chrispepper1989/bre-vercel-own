@@ -1,11 +1,15 @@
 ﻿"use client"
 import React, {useState} from "react";
-import {PersonalDetails, PersonalDetailsForm} from "@/components/organisms/PersonalDetailsForm";
-import './FormStyles.css';
 
-import EmploymentDetailsForm, {EmploymentDetails} from "@/components/organisms/EmploymentDetailsForm";
-import AddressDetailsForm, {AddressDetails} from "@/components/organisms/AddressDetailsForm";
-import AffordabilityDetailsForm, {AffordabilityDetails} from "@/components/organisms/AffordabilityDetailsForm";
+import './FormStyles.css';
+import AddressDetailsForm, { AddressDetails } from "../molecules/AddressDetailsForm";
+import {PersonalDetails, PersonalDetailsForm} from "@/components/molecules/PersonalDetailsForm";
+import AffordabilityDetailsForm, {AffordabilityDetails} from "@/components/molecules/AffordabilityDetailsForm";
+import EmploymentDetailsForm, {EmploymentDetails} from "@/components/molecules/EmploymentDetailsForm";
+import { redirect } from "next/navigation";
+import { useRouter } from 'next/navigation'
+
+
 
 const MultiStepForm: React.FC = () => {
     const [personalDetails, setPersonalDetails] = useState<PersonalDetails>({
@@ -74,8 +78,11 @@ const MultiStepForm: React.FC = () => {
     });
 
     const [currentTab, setCurrentTab] = useState(0);
+    const router = useRouter()
 
     const handleSubmit = (event: React.FormEvent) => {
+        const baseURL = process.env.API_URL ?? "https://localhost:7075/api";
+        const url = `${baseURL}/FinanceScan/create`;
         event.preventDefault();
         const formData = {
             personalDetails,
@@ -83,8 +90,50 @@ const MultiStepForm: React.FC = () => {
             employmentDetails,
             affordabilityDetails,
         };
-        console.log("Form Submitted:", formData);
-        alert("Form submitted successfully!");
+        const json = JSON.stringify(formData);
+        console.log("the json is:")
+        console.log(json);
+
+
+
+
+        console.log("Calling")
+        console.log(url)
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:json,
+         
+        })
+            .then( async  (response) => {
+                if (!response.ok) {
+                    // If response status is not 2xx, throw an error
+                    console.log("Validation errors!")
+                    console.log(response)
+                    console.log(response.status)
+                    const errorData = await response.json(); // Extract the error message
+                    console.log('Validation errors:', errorData);
+                    throw new Error('Validation failed');
+                }
+                return response.json()
+            })
+            .then((data) => {
+                console.log('Created scan with ID:', data.scanId);
+                console.log('channel to sub to is:', data.channel);
+
+                console.log("Form Submitted:", formData);
+                alert("Form submitted successfully!");
+                 router.push(`/results?id=${data.scanId}&channel=${data.channel}`) //todo channel probably shouldnt be in the params
+                
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        
+       
     };
 
     const renderTab = () => {
