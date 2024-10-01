@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import PubNub from "pubnub";
 import './QuoteList.css';
 import Pubnub from "pubnub";
+import {undefined} from "zod";
 
 
 // Define the structure for a Quote
@@ -26,24 +27,20 @@ const QuoteList: React.FC<{ eligibilityId: string, channel: string }> = ({eligib
     const url = `${baseURL}/FinanceScan/run/${eligibilityId}`;
     console.log("url is:")
     console.log(url);
-    
-    
-    
-    const data: Pubnub.PubnubConfig =
-        {
-      
-            userId: "guest",
-            
 
-        }
-    const pubnub = new PubNub(   data   );
+
+
+
+    const pubnub = new PubNub({
+        publishKey: "pub-c-a01b31d5-61bf-428e-bd87-69cce079dfc7",
+        subscribeKey: "sub-c-a67ff09b-e10a-47b0-ad44-d892f870f841",
+        userId:"chris.pepper@ivendi.com"
+    });
 
     useEffect(() => {
 
         console.log("subbing to ")
         console.log(channel)
-     /*   const channel = pubnub.channel('chats.room1');
-        channel.subscription().subscribe();*/
         
         pubnub.subscribe({ channels: [channel] });
 

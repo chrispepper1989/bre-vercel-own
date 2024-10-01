@@ -1,5 +1,6 @@
 ﻿import React from "react";
-import {AddressDetails} from "@/components/organisms/AddressDetailsForm";
+import {AddressDetails} from "@/components/molecules/AddressDetailsForm";
+
 
 
 // Define EmploymentDetails interface

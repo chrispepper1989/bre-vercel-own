@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#cs stuff
+scripts/ConvertTelToJDM/ConvertTelToJDM/obj
+scripts/ConvertTelToJDM/ConvertTelToJDM/obj/*
