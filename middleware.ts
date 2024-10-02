@@ -51,7 +51,7 @@ function isTruthy(environmentVar: string | undefined): boolean {
 
 export function middleware(req: NextRequest): NextResponse {
     const { nextUrl } = req;
-    const useAuth = process.env.USE_AUTH ?? true;
+    const useAuth = process.env.USE_AUTH ?? false;
     const useAuthentication =
         useAuth && !nextUrl.pathname.startsWith('/api');
 
