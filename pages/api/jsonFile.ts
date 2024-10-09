@@ -63,7 +63,7 @@ async function setJsonFile(req: NextApiRequest, res: NextApiResponse) {
         const  {graph} = req.query;
         
        
-        const graphFile = (graph as string) ?? 'graph.json';
+        const graphFile = (graph as string) ?? 'graph-new.json';
         const filePath = path.join(process.cwd(), 'public', graphFile);
         const data = req.body;
 
@@ -77,8 +77,8 @@ async function setJsonFile(req: NextApiRequest, res: NextApiResponse) {
         await vc.UpdateVersion(filePath);
         
          
-        if(!data.error)
-            await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+        //if(!data.error)
+        await fs.writeFile(filePath, JSON.stringify(data, null, 2));
         res.status(200).json({ message: 'JSON file updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error writing JSON file' });

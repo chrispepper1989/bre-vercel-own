@@ -1,0 +1,257 @@
+{
+  "contentType": "application/vnd.gorules.decision",
+  "nodes": [
+    {
+      "name": "Post-PreScreen",
+      "id": "6ea65cab-e11d-4fc7-aa61-4c0ffdfd2237",
+      "position": {
+        "x": -115,
+        "y": 280
+      },
+      "type": "inputNode"
+    },
+    {
+      "name": "Final Score",
+      "id": "6d01c66d-09b6-47c7-96dd-8718e2bc2608",
+      "position": {
+        "x": 1030,
+        "y": 605
+      },
+      "type": "outputNode"
+    },
+    {
+      "type": "decisionTableNode",
+      "content": {
+        "hitPolicy": "first",
+        "inputs": [
+          {
+            "id": "e44d62bb-234b-47d4-8129-54c47e8006e6",
+            "name": "Lender Code",
+            "field": "lender.code",
+            "defaultValue": "\"\""
+          }
+        ],
+        "outputs": [
+          {
+            "id": "b1a70fc8-2eaf-4873-a753-c51b2f1a097c",
+            "name": "Enable Minimum Age Rule",
+            "field": "rule.minimumAge.enabled",
+            "defaultValue": "true"
+          },
+          {
+            "id": "12633385-40a2-400a-bd8e-7e0287235756",
+            "field": "rules.employment.enabled",
+            "name": "Enable Employment Rue",
+            "defaultValue": "true"
+          }
+        ],
+        "rules": [
+          {
+            "_id": "03296e78-4331-4bc2-bf1f-fddf67ab45e7",
+            "e44d62bb-234b-47d4-8129-54c47e8006e6": "ADM",
+            "b1a70fc8-2eaf-4873-a753-c51b2f1a097c": "true",
+            "12633385-40a2-400a-bd8e-7e0287235756": "true"
+          },
+          {
+            "_id": "f2cc9628-fa1a-4db0-aaf6-73d394376da5",
+            "e44d62bb-234b-47d4-8129-54c47e8006e6": "BH",
+            "b1a70fc8-2eaf-4873-a753-c51b2f1a097c": "false",
+            "12633385-40a2-400a-bd8e-7e0287235756": "true"
+          },
+          {
+            "_id": "8c3450bb-2abd-4474-88bc-20949e26d641",
+            "e44d62bb-234b-47d4-8129-54c47e8006e6": "SAN",
+            "b1a70fc8-2eaf-4873-a753-c51b2f1a097c": "true",
+            "12633385-40a2-400a-bd8e-7e0287235756": "true"
+          },
+          {
+            "_id": "00be5bc9-9051-473c-ad5c-bbb28f8f8716",
+            "e44d62bb-234b-47d4-8129-54c47e8006e6": "MAR",
+            "b1a70fc8-2eaf-4873-a753-c51b2f1a097c": "false",
+            "12633385-40a2-400a-bd8e-7e0287235756": "false"
+          },
+          {
+            "_id": "339c6b89-4ee5-4be2-96bf-b32f31c9e855",
+            "e44d62bb-234b-47d4-8129-54c47e8006e6": "TDM",
+            "b1a70fc8-2eaf-4873-a753-c51b2f1a097c": "true",
+            "12633385-40a2-400a-bd8e-7e0287235756": "false"
+          }
+        ]
+      },
+      "id": "2dc49c68-c80e-489c-bb19-3e26a51e8b80",
+      "name": "Lender Rules Enabled",
+      "position": {
+        "x": 115,
+        "y": 365
+      }
+    },
+    {
+      "type": "decisionTableNode",
+      "content": {
+        "hitPolicy": "first",
+        "inputs": [
+          {
+            "id": "7d574868-6d59-4060-aa90-0746817d94ce",
+            "name": "Enabled",
+            "field": "rules.minimumAge.enabled",
+            "defaultValue": "true"
+          },
+          {
+            "id": "0c6a1db4-487b-48d0-b900-402ec19b9bab",
+            "field": "customer.age",
+            "name": "Age"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "540b91fa-205b-43d2-97c4-d039fea86da6",
+            "name": "Reduce Score By",
+            "field": "output",
+            "defaultValue": "0"
+          }
+        ],
+        "rules": [
+          {
+            "_id": "0ca1e908-6fe7-443b-adea-ff2246496e9e",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "false",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "0"
+          },
+          {
+            "_id": "a2caf65d-2b91-4359-b8d5-0e80a588c65e",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "true",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "<25",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "20"
+          },
+          {
+            "_id": "80f514dc-fe1d-48c6-884b-57695adf432b",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "true",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "<20",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "40"
+          },
+          {
+            "_id": "d2078219-b691-44bc-b101-d0ad1fe7a2b3",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "true",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "<19",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "60"
+          }
+        ]
+      },
+      "id": "d84c530c-511e-4984-bfd6-2ca01e3933aa",
+      "name": "MinimumAge",
+      "position": {
+        "x": 460,
+        "y": 355
+      }
+    },
+    {
+      "type": "decisionTableNode",
+      "content": {
+        "hitPolicy": "first",
+        "inputs": [
+          {
+            "id": "7d574868-6d59-4060-aa90-0746817d94ce",
+            "name": "Enabled",
+            "field": "rules.minimumAge.enabled",
+            "defaultValue": "true"
+          },
+          {
+            "id": "0c6a1db4-487b-48d0-b900-402ec19b9bab",
+            "field": "customer.age",
+            "name": "Age"
+          }
+        ],
+        "outputs": [
+          {
+            "id": "540b91fa-205b-43d2-97c4-d039fea86da6",
+            "name": "Reduce Score By",
+            "field": "output",
+            "defaultValue": "0"
+          }
+        ],
+        "rules": [
+          {
+            "_id": "0ca1e908-6fe7-443b-adea-ff2246496e9e",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "false",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "0"
+          },
+          {
+            "_id": "a2caf65d-2b91-4359-b8d5-0e80a588c65e",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "true",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "<25",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "20"
+          },
+          {
+            "_id": "80f514dc-fe1d-48c6-884b-57695adf432b",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "true",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "<20",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "40"
+          },
+          {
+            "_id": "d2078219-b691-44bc-b101-d0ad1fe7a2b3",
+            "7d574868-6d59-4060-aa90-0746817d94ce": "true",
+            "0c6a1db4-487b-48d0-b900-402ec19b9bab": "<19",
+            "540b91fa-205b-43d2-97c4-d039fea86da6": "60"
+          }
+        ]
+      },
+      "id": "c18b5dad-3bf5-402a-a975-641ab3b2c1bd",
+      "name": "Employment",
+      "position": {
+        "x": 460,
+        "y": 495
+      }
+    },
+    {
+      "type": "functionNode",
+      "content": {
+        "source": "import zen from 'zen';\n\nexport const handler = async (input) => {\n  return input;\n};\n"
+      },
+      "id": "961923f6-0bed-4804-857f-559193fcb4ad",
+      "name": "Sum Score",
+      "position": {
+        "x": 800,
+        "y": 440
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "70016204-a92e-45e1-be05-f917abcb3daa",
+      "sourceId": "6ea65cab-e11d-4fc7-aa61-4c0ffdfd2237",
+      "type": "edge",
+      "targetId": "2dc49c68-c80e-489c-bb19-3e26a51e8b80"
+    },
+    {
+      "id": "cf757e69-986d-42d6-b835-35e4f0e79397",
+      "sourceId": "2dc49c68-c80e-489c-bb19-3e26a51e8b80",
+      "type": "edge",
+      "targetId": "d84c530c-511e-4984-bfd6-2ca01e3933aa"
+    },
+    {
+      "id": "482a993c-1caf-4ef9-b39e-5003957fb52f",
+      "sourceId": "2dc49c68-c80e-489c-bb19-3e26a51e8b80",
+      "type": "edge",
+      "targetId": "c18b5dad-3bf5-402a-a975-641ab3b2c1bd"
+    },
+    {
+      "id": "30c081be-0b92-4d53-9844-666c937fb1c2",
+      "sourceId": "d84c530c-511e-4984-bfd6-2ca01e3933aa",
+      "type": "edge",
+      "targetId": "961923f6-0bed-4804-857f-559193fcb4ad"
+    },
+    {
+      "id": "d7549d30-d4b0-490a-b6ab-15fdca385cc6",
+      "sourceId": "c18b5dad-3bf5-402a-a975-641ab3b2c1bd",
+      "type": "edge",
+      "targetId": "961923f6-0bed-4804-857f-559193fcb4ad"
+    },
+    {
+      "id": "7b781948-6462-4962-b46a-b1f27385f41c",
+      "sourceId": "961923f6-0bed-4804-857f-559193fcb4ad",
+      "type": "edge",
+      "targetId": "6d01c66d-09b6-47c7-96dd-8718e2bc2608"
+    }
+  ]
+}

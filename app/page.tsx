@@ -16,8 +16,8 @@ export default function Home({
     const {graph} = searchParams;
     
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <GraphComponent graphFile={graph as string ?? "graph.json"}></GraphComponent>
+        <main >
+            <GraphComponent graphFile={graph as string ?? "DanFullCheck.json"}></GraphComponent>
             {/* ... rest of your component */}
         </main>
     );

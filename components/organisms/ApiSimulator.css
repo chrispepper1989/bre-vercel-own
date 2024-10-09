@@ -1,0 +1,10 @@
+﻿.api-simulator {
+    display: flex;
+    flex-direction: row; /* Stack items vertically */
+    height: 210px;
+}
+
+.api-simulator textarea {
+    flex: 1; /* Allow textareas to grow and shrink to fill available space */
+    height: 200px; /* Remove fixed height */
+}

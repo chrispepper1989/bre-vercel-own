@@ -2,9 +2,8 @@
 import '@gorules/jdm-editor/dist/style.css';
 import {DecisionGraph, JdmConfigProvider} from '@gorules/jdm-editor';
 import {useState, useEffect} from 'react';
-// Assuming your API endpoint is '/api/jsonFile'
-
-
+import ApiSimulator from "@/components/organisms/ApiSimulator";
+import './DecisionComponent.css';
 
 interface GraphComponentProps {
     graphFile?: string
@@ -33,12 +32,14 @@ function GraphComponent({graphFile}: GraphComponentProps) {
         const saveData = async () => {
             try {
                 console.log("trying to save")
+                const json = JSON.stringify(graph);
+                console.log(json);
                 await fetch(API_ENDPOINT, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(graph),
+                    body: json,
                 });
                 console.log("done save")
             } catch (error) {
@@ -52,13 +53,15 @@ function GraphComponent({graphFile}: GraphComponentProps) {
     }, [graph]);
 
     return (
-        <div className="w-full">
+        <div className="w-full graph">
             <JdmConfigProvider>
                 <DecisionGraph
+                    
                     value={graph}
                     onChange={(val) => setGraph(val as any)}
                 />
             </JdmConfigProvider>
+            <ApiSimulator graphFile={graphFile}></ApiSimulator>
         </div>
     );
 }
