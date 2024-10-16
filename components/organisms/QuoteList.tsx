@@ -1,69 +1,86 @@
 ﻿"use client"
-import React, { useEffect, useState } from "react";
-import PubNub from "pubnub";
+import React, {useEffect, useState} from "react";
 import './QuoteList.css';
-import Pubnub from "pubnub";
-import {undefined} from "zod";
+import {AmpImplementation} from "@/components/organisms/AmpImplementation";
+import {PubNubImplementation} from "@/components/organisms/PubNubImplementation";
 
 
 // Define the structure for a Quote
 interface Quote {
-    productId: number;
-    eligibilityStatus: string;
-    eligibilityMessages: { message: string }[];
-    standardInfo: any;
-    offeredInfo: any;
+    ProductId: number;
+    EligibilityStatus: string;
+    EligibilityMessages: { message: string }[];
+    StandardInfo: any;
+    OfferedInfo: any;
 }
 
 // Define the structure for a Finance Scan Response
-interface FinanceScanResponse {
-    financeScannerId: string;
-    quotes: Quote[];
+export interface FinanceScanResponse {
+    FinanceScannerId: string;
+    Quotes: Quote[];
 }
 
-const QuoteList: React.FC<{ eligibilityId: string, channel: string }> = ({eligibilityId, channel}) => {
+export interface IFinanceScannerQueue<T>{
+    onListen: (event: (event:{message: T})=>void)=>void
+    subscribe: (channel: string)=>void
+    cleanUp:()=>void
+}
+
+const QuoteList: React.FC<{
+   
+    vechicleId?: string | string[] | undefined,
+    customerId?: string | string[] | undefined,
+    quoteIds?: string[]
+}> = ({vechicleId, customerId, quoteIds}) => {
     const [quotes, setQuotes] = useState<Quote[]>([]);
-    const baseURL = process.env.API_URL ?? "https://localhost:7075/api";
-    const url = `${baseURL}/FinanceScan/run/${eligibilityId}`;
+    //https://localhost:7162/api/v1/scans
+    const baseURL = process.env.API_URL ?? "https://localhost:7162/api";
+    const url = `${baseURL}/v1/scans`;
     console.log("url is:")
     console.log(url);
 
+    const usePubNub = true;
+    const queue :IFinanceScannerQueue<FinanceScanResponse> = !usePubNub ? new AmpImplementation<FinanceScanResponse>(
+        {
+            rmqhost:"localhost",
+            rmqPass:"guest",
+            rmqUser:"guest",
+        }
+    ) : new PubNubImplementation<FinanceScanResponse>();
+   
 
+    useEffect(() => {       
 
-
-    const pubnub = new PubNub({
-        publishKey: "pub-c-a01b31d5-61bf-428e-bd87-69cce079dfc7",
-        subscribeKey: "sub-c-a67ff09b-e10a-47b0-ad44-d892f870f841",
-        userId:"chris.pepper@ivendi.com"
-    });
-
-    useEffect(() => {
-
-        console.log("subbing to ")
-        console.log(channel)
-        
-        pubnub.subscribe({ channels: [channel] });
-
-        const listener = {
+        queue.onListen((event: { message: FinanceScanResponse }) => {
             
-            message: (event: { message: FinanceScanResponse }) => {
-                console.log("received message")
-                console.log(event.message);
-                const newQuotes = event.message.quotes;
-                setQuotes((prevQuotes) => [...prevQuotes, ...newQuotes]);
-                
-            },
-        };
+            console.log("received message")
+            console.log(event.message);
+            
+            const newQuotes = event.message.Quotes;
+            if(!newQuotes || newQuotes.length === 0) return;
 
-        pubnub.addListener(listener);
+          //  console.log(event.message.Quotes.length);
+            
+            setQuotes((prevQuotes) => [...prevQuotes, ...newQuotes]);
+
+        });
 
 
 
         fetch(url, {
 
+       
+            method: 'POST', // or 'PUT', 'PATCH', etc. depending on your use case
             headers: {
-                'accept': '*/*'
+                'accept': '*/*',
+                'Content-Type': 'application/json' // or other appropriate content type
             },
+            body: JSON.stringify({
+                VehicleId: vechicleId,
+                CustomerId:customerId,
+                QuoteIds: quoteIds,
+  
+            })
 
         })
             .then( async  (response) => {
@@ -76,8 +93,11 @@ const QuoteList: React.FC<{ eligibilityId: string, channel: string }> = ({eligib
                     console.log('Validation errors:', errorData);
                     throw new Error('Validation failed');
                 }
-                console.log('ran scan with ID:', eligibilityId);
-                console.log('channel to sub to is:', channel);
+                const data:{message:string, channel:string} = await response.json(); // Extract the data
+                console.log('ran scan with ID:', vechicleId);
+                console.log('channel to sub to is:', data.channel);
+                console.log(data.message);
+                queue.subscribe(data.channel)
 
             })
 
@@ -87,17 +107,17 @@ const QuoteList: React.FC<{ eligibilityId: string, channel: string }> = ({eligib
         
 
         return () => {
-            pubnub.removeListener(listener);
-            pubnub.unsubscribeAll();
+            queue.cleanUp();
+            
         };
-    }, [eligibilityId, pubnub]);
+    }, [vechicleId,customerId, queue]);
 
     const renderCard = (quote: Quote, index: number) => {
         const {
-            standardInfo,
-            offeredInfo,
-            eligibilityStatus,
-            eligibilityMessages,
+            StandardInfo,
+            OfferedInfo,
+            EligibilityStatus,
+            EligibilityMessages,
         } = quote;
 
         // Function to determine if standard and offered info match
@@ -107,25 +127,25 @@ const QuoteList: React.FC<{ eligibilityId: string, channel: string }> = ({eligib
 
         return (
             <div key={index} className="quote-card">
-                <h3>Product ID: {quote.productId}</h3>
-                <p>Status: {eligibilityStatus}</p>
+                <h3>Product ID: {quote.ProductId}</h3>
+                <p>Status: {EligibilityStatus}</p>
                 <div className="eligibility-messages">
-                    {eligibilityMessages.map((msg, idx) => (
+                    {EligibilityMessages.map((msg, idx) => (
                         <p key={idx}>Message: {msg.message}</p>
                     ))}
                 </div>
 
-                {isInfoDifferent(standardInfo, offeredInfo) ? (
+                {isInfoDifferent(StandardInfo, OfferedInfo) ? (
                     <div className="quote-info">
                         <h4>Standard Info:</h4>
-                        <pre>{JSON.stringify(standardInfo, null, 2)}</pre>
+                        <pre>{JSON.stringify(StandardInfo, null, 2)}</pre>
                         <h4>Offered Info (Different APR):</h4>
-                        <pre>{JSON.stringify(offeredInfo, null, 2)}</pre>
+                        <pre>{JSON.stringify(OfferedInfo, null, 2)}</pre>
                     </div>
                 ) : (
                     <div className="quote-info">
                         <h4>Offered Info:</h4>
-                        <pre>{JSON.stringify(offeredInfo, null, 2)}</pre>
+                        <pre>{JSON.stringify(OfferedInfo, null, 2)}</pre>
                     </div>
                 )}
             </div>

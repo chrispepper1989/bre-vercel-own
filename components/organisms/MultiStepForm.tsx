@@ -122,11 +122,11 @@ const MultiStepForm: React.FC = () => {
             })
             .then((data) => {
                 console.log('Created scan with ID:', data.scanId);
-                console.log('channel to sub to is:', data.channel);
+                console.log('channel to sub to is:', data.quoteIds);
 
                 console.log("Form Submitted:", formData);
                 alert("Form submitted successfully!");
-                 router.push(`/results?id=${data.scanId}&channel=${data.channel}`) //todo channel probably shouldnt be in the params
+                 router.push(`/results?vid=${data.scanId}&cid=${data.scanId}&quoteIds=${data.quoteIds}`) //todo channel probably shouldnt be in the params
                 
             })
             .catch((error) => {

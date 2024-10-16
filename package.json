@@ -11,16 +11,21 @@
   "dependencies": {
     "@gorules/jdm-editor": "^1.15.0",
     "@gorules/zen-engine": "^0.27.0",
+    "dotenv": "^16.4.5",
+    "net": "^1.0.2",
     "next": "14.2.7",
     "pubnub": "^8.2.7",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tls": "^0.0.1"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.5",
     "@types/node": "^20",
     "@types/pubnub": "^7.4.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "amqplib": "^0.10.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
     "postcss": "^8",
