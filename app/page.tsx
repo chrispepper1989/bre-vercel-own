@@ -17,7 +17,7 @@ export default function Home({
     
     return (
         <main >
-            <GraphComponent graphFile={graph as string ?? "DanFullCheck.json"}></GraphComponent>
+            <GraphComponent graphFile={graph as string ?? "sl.json"}></GraphComponent>
             {/* ... rest of your component */}
         </main>
     );
