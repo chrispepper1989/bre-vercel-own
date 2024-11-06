@@ -10,7 +10,7 @@ async function handleMakeDecision(req: NextApiRequest, res: NextApiResponse) {
     try {
         const  {graph} = req.query;
         
-        const filePath = path.join(process.cwd(), 'public', (graph as string)?? 'graph.json');
+        const filePath = path.join(process.cwd(), 'public', (graph as string)?? 'SL.json');
         const data = await fs.readFile(filePath, 'utf8');
         const engine = new ZenEngine();
         const parsedData = JSON.parse(data);
